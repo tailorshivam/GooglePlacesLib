@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.shivam.googleplaceslib"
-    compileSdk = 34
+    namespace = "com.example.googleplaceslib"
+    compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.shivam.googleplaceslib"
+        applicationId = "com.example.googleplaceslib"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -45,4 +45,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(project(":GooglePlacesLib"))
+
 }
