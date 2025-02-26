@@ -7,6 +7,11 @@ import com.google.android.libraries.places.api.model.AutocompletePrediction
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 /**
  *  Created by Shivam on 25-Feb-25.
@@ -17,19 +22,25 @@ class PlacesRepository(private val context: Context, apiKey: String) {
     private val sessionToken = AutocompleteSessionToken.newInstance()
 
     fun fetchPlaces(query: String, callback: (List<String>) -> Unit) {
-        val request = FindAutocompletePredictionsRequest.builder()
-            .setSessionToken(sessionToken)
-            .setQuery(query)
-            .build()
+        CoroutineScope(Dispatchers.IO).launch {
+            val request = FindAutocompletePredictionsRequest.builder()
+                .setSessionToken(sessionToken)
+                .setQuery(query)
+                .build()
 
-        placesClient.findAutocompletePredictions(request)
-            .addOnSuccessListener { response ->
+            try {
+                val response = placesClient.findAutocompletePredictions(request).await()
                 val placeList = response.autocompletePredictions.map { it.getFullText(null).toString() }
-                callback(placeList)
+
+                withContext(Dispatchers.Main) {
+                    callback(placeList)
+                }
+            } catch (e: Exception) {
+                Log.e("PlacesRepository", "Error fetching places", e)
+                withContext(Dispatchers.Main) {
+                    callback(emptyList())
+                }
             }
-            .addOnFailureListener { exception ->
-                Log.e("PlacesRepository", "Error fetching places", exception)
-                callback(emptyList())
-            }
+        }
     }
 }
