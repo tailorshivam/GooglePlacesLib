@@ -5,7 +5,7 @@
 # GooglePlacesLib 🚀
 An easy-to-use Google Places API Library for Android.
 
-[![Platform](https://img.shields.io/badge/Platform-Android-brightgreen.svg)](https://developer.android.com/) ![Language](https://img.shields.io/badge/Language-Kotlin-orange.svg)
+[![Platform](https://img.shields.io/badge/Platform-Android-brightgreen.svg)](https://developer.android.com/) ![Language](https://img.shields.io/badge/Language-Kotlin-orange.svg) ![Version](https://img.shields.io/badge/Version-1.0.1-blue.svg)
 
 ## 📌 Installation
 Add JitPack to `settings.gradle.kts`:
@@ -21,7 +21,7 @@ dependencyResolutionManagement {
 Then, add the dependency:
 ```kotlin
 dependencies {
-    implementation("com.github.yourusername:GooglePlacesLib:1.0.0")
+    implementation("com.github.yourusername:GooglePlacesLib:TAG")
 }
 ```
 ## 🎯 Usage
