@@ -21,7 +21,7 @@ dependencyResolutionManagement {
 Then, add the dependency:
 ```kotlin
 dependencies {
-    implementation("com.github.yourusername:GooglePlacesLib:TAG")
+    implementation("com.github.tailorshivam:GooglePlacesLib:TAG")
 }
 ```
 ## 🎯 Usage
